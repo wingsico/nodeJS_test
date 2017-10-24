@@ -1,0 +1,42 @@
+{
+  "name": "mypackage",
+  "description": "Sample package for CommonJS. This package demonstrates...",
+  "version": "0.7.0",
+  "keywords": [
+    "package",
+    "example"
+  ],
+  "maintainers": [
+    {
+      "name": "Bill Smith",
+      "email": "bill@example.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "BYVoid",
+      "web": "http://www.byvoid.com"
+    }
+  ],
+  "bugs": {
+    "email": "dev@exmaple.com",
+    "web": "http://www.example.com/bugs"
+  },
+  "licenses": [
+    {
+      "type": "GPLv2",
+      "url": "http://www.example.org/licenses/gpl.html"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/BYVOid/mypackage.git"
+  },
+  "dependencies": {
+    "webkit": "1.2",
+    "ssl": {
+      "gnutls": ["1.0", "2.0"],
+      "openssl": "0.9.8"
+    }
+  }
+}
