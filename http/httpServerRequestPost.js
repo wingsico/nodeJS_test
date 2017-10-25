@@ -8,7 +8,7 @@ http.createServer((req, res) => {
   var post = ''
 
   req.on('data', (chunk) => {
-    post += chunk
+    post += chunks
   })
 
   req.on('end', () => {
