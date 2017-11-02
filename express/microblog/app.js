@@ -8,8 +8,9 @@ var mongoose = require('mongoose')
 // var multer = require('multer')
 var session = require('express-session')
 
+var url = 'mongo://ncuhome_2017_exam:ncuhome_2017_exam@www.ncuos.cn:3717/ncuhome_2017_exam?authMechanism=MONGODB-CR&authSource=admin'
 global.dbHandle = require('./database/dbhandle')
-global.db = mongoose.connect("mongoose://localhost:27017/nodedb")
+global.db = mongoose.connect(url)
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

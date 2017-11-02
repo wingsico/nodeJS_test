@@ -23,11 +23,11 @@ router.route('/login').get((req, res) => {
       res.send(404)
     } else {
       if (req.body.password !== doc.password) {
-        res.session.error = '密码错误'
+        req.session.error = '密码错误'
         res.send(404)
         res.redirect('/login')
       } else {
-        res.session.user = doc
+        req.session.user = doc
         res.send(200)
         res.redirect('/home')
       }
@@ -47,10 +47,10 @@ router.route('/register').get((req, res) => {
   User.findOne({ username: username }, (err, doc) => {
     if (err) {
       res.send(500)
-      res.session.error = '网络错误'
+      req.session.error = '网络错误'
       console.log(err)
     } else if (doc) {
-      res.session.error = '用户名已存在'
+      req.session.error = '用户名已存在'
       res.send(500)
     } else {
       User.create({
