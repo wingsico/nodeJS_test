@@ -13,6 +13,10 @@ app.set('view engine', 'handlebars')
 // 设置端口
 app.set('port', process.env.PORT || 3000)
 
+app.use((req, res, next) => {
+  res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1'
+  next()
+})
 // 托管静态文件
 app.use(express.static(__dirname + '/public'))
 
@@ -22,7 +26,18 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-  res.render('about', { fortune: fortune.getFortune() })
+  res.render('about', {
+    fortune: fortune.getFortune(),
+    pageTestScript: '/qa/tests-about.js'
+  })
+})
+
+app.get('/tours/hood-river', (req, res) => {
+  res.render('tours/hood-river')
+})
+
+app.get('/tours/request-group-rate', (req, res) => {
+  res.render('tours/request-group-rate')
 })
 
 // 404 catch-all 处理器（中间件）
