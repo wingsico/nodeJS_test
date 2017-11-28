@@ -19,20 +19,20 @@ suite('Cross-Page Tests', () => {
     })
   })
 
-  // test('requesting a group rate from the oregon coast tour page showd populate the referrer field', (done) => {
-  //   var referrer = '/tours/oregon-coast'
-  //   browser.visit(referrer, () => {
-  //     browser.clickLink('.requestGroupRate', () => {
-  //       assert(browser.field('referrer').value === referrer)
-  //     })
-  //     done()      
-  //   })
-  // })
+  test('requesting a group rate from the oregon coast tour page showd populate the referrer field', (done) => {
+    var referrer = '/tours/oregon-coast'
+    browser.visit(referrer, () => {
+      browser.clickLink('.requestGroupRate', () => {
+        assert(browser.field('referrer').value === referrer)
+      })
+      done()      
+    })
+  })
 
   test('visiting the "request group rate" page dirctly should result in an empty referrer field', (done) => {
     browser.visit('/tours/request-group-rate', () => {
       console.log(browser.resources['0'].request.headers._headers)
-      assert(browser.resources['0'].request.headers._headers[0][1] === '')
+      assert(browser.resources['0'].reque st.headers._headers[0][1] === 'text/html')
       done()
     })
   })

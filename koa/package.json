@@ -1,0 +1,19 @@
+{
+  "name": "koa-practice",
+  "version": "1.0.0",
+  "description": "a koa test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "koa",
+    "koa-test"
+  ],
+  "author": "wingsico",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.4.1"
+  }
+}
