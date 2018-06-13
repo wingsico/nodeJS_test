@@ -1,5 +1,6 @@
 var express = require('express');
-
+var util = require('util')
+var path = require('path')
 var app = express()
 // 创建视图引擎，指明了默认的布局为'main'
 var handlebars = require('express3-handlebars').create({ defaultLayout: 'main' })
@@ -13,6 +14,9 @@ app.set('view engine', 'handlebars')
 // 设置端口
 app.set('port', process.env.PORT || 3000)
 
+// 设置缓存
+// app.set('view cache', true)
+
 app.use((req, res, next) => {
   res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1'
   next()
@@ -23,6 +27,41 @@ app.use(express.static(__dirname + '/public'))
 // 默认路由
 app.get('/', (req, res) => {
   res.render('home')
+})
+
+// 请求报头
+app.get('/headers', (req, res) => {
+  res.type('text/plain')
+  let s = ''
+  for (let name in req.headers) {
+    s += `${name}: ${req.headers[name]}\n`
+  }
+  res.send(s)
+})
+
+// 请求属性和方法测试
+app.get('/methods-test', (req, res) => {
+  res.type('application/json')
+  res.send({
+    "url": req.url,
+    "query": req.query,
+    "body": req.body,
+    "route": req.route,
+    "cookies": req.cookies,
+    "headers": req.headers,
+    "ip": req.ip,
+    "path": req.path,
+    "host": req.host,
+    "xhr": req.xhr,
+    "protocol": req.protocol,
+    "acceptedLanguages": req.acceptedLanguages
+  })
+})
+
+// 响应对象测试
+app.get('/response-test', (req, res) => {
+  // res.redirect(302,'/about')
+  res.sendFile(path.join(__dirname, '/public/img', 'yahoo.png'))
 })
 
 app.get('/about', (req, res) => {
@@ -38,6 +77,28 @@ app.get('/tours/hood-river', (req, res) => {
 
 app.get('/tours/request-group-rate', (req, res) => {
   res.render('tours/request-group-rate')
+})
+
+// template-handlebars 测试
+app.get('/template', (req, res) => {
+  let data = {
+    currency: {
+      name: 'United States dollars',
+      abbrev: 'USD'
+    },
+    tours: [
+      {
+        name: 'Hood River', price: '$99.95'
+      },
+      {
+        name: 'Oregon Coast', price: '$159.95'
+      }
+    ],
+    specialsUrl: '/january-specials',
+    currencies: ['USD', 'GBP', 'BTC']
+  }
+
+  res.render('template', data)
 })
 
 // 404 catch-all 处理器（中间件）
